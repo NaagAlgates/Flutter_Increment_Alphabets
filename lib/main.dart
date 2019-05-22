@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     constants = new Constants();
-    str = constants.createHouseholdID("Z95");
+    str = constants.createIndividualID("0998");
     print(str);
   }
 
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
-      str = str!=null?constants.createHouseholdID(str):"Reached limit";
+      str = str!=null?constants.createIndividualID(str):"Reached limit";
       print(str);
     });
   }

@@ -1,24 +1,22 @@
+import 'Validator.dart';
+
 class Constants {
   Constants();
-  static final RegExp _checkHouseholdID = RegExp(
+  /*static final RegExp _checkHouseholdID = RegExp(
     r'^([a-zA-Z]\d{2}|\d[a-zA-Z]\d{2}|\d{2}[a-zA-Z]\d|\d{3}[a-zA-Z])$',
-  );
+  );*/
 
   createHouseholdID(String lastAvailableID) {
     if (lastAvailableID != null) {
       String serialID;
       String rollNumber;
-      if (isValidHouseholdID(lastAvailableID)) {
+      if (Validator.isValidHouseholdID(lastAvailableID)) {
         serialID = lastAvailableID.substring(0, 1);
         rollNumber = lastAvailableID.substring(1, 3);
         //print(serialID);
         return incrementHouseholdID(serialID, rollNumber);
       }
     }
-  }
-
-  isValidHouseholdID(String hhid) {
-    return _checkHouseholdID.hasMatch(hhid);
   }
 
   incrementHouseholdID(String serial, String id) {
@@ -50,5 +48,28 @@ class Constants {
         new String.fromCharCodes(new Iterable.generate(1, (x) => char_a + 1));
     //print(nextSerial);
     return nextSerial;
+  }
+
+  createIndividualID(String lastIndividualID){
+    String newIndividualID="-1";
+    if(Validator.isValidIndividualID(lastIndividualID)){
+      int individualID = int.parse(lastIndividualID);
+      individualID++;
+      if(individualID>0 && individualID<=1000){
+        newIndividualID = individualID.toString();
+        switch(newIndividualID.length){
+          case 1:
+            newIndividualID = "000"+newIndividualID;
+            break;
+          case 2:
+            newIndividualID = "00"+newIndividualID;
+            break;
+          case 3:
+            newIndividualID = "0"+newIndividualID;
+            break;
+        }
+      }
+      return newIndividualID;
+    }
   }
 }
